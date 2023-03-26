@@ -14,9 +14,20 @@ typedef struct Heap
 	int capacity;
 }HP;
 
+//初始化
 void HeapInit(HP* php);
+
+//插入数据
 void HeapPush(HP* php,HPDataType x);
+
+//删除数据
 void HeapPop(HP* php);
+
+//取堆顶数据
 HPDataType HeapTop(HP* php);
+
+//是否为空
 bool HeapEmpty(HP* php);
+
+//堆中元素的个数
 int HeapSize(HP* php);
