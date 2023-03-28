@@ -31,3 +31,9 @@ bool HeapEmpty(HP* php);
 
 //堆中元素的个数
 int HeapSize(HP* php);
+
+void HeapDestroy(HP* php);
+
+void HeapInitArray(HP* php, int* a, int n);
+
+void AdjustDown2(int* a, int n, int parent);

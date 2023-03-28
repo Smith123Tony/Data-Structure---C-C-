@@ -115,3 +115,11 @@ int HeapSize(HP* php)
 	assert(php);
 	return php->size;
 }
+
+void HeapDestroy(HP* php)
+{
+	assert(php);
+	free(php->a);
+	php->a = NULL;
+	php->capacity = php->size = 0;
+}
