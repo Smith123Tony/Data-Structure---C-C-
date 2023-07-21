@@ -2,96 +2,86 @@
 
 #include"Queue.h"
 
-void QInit(Queue* ps)
+bool QueueEmpty(Queue* pq)
 {
-	assert(ps);
-	ps->head = ps->tail = NULL;
-	ps->size = 0;
+	assert(pq);
+	return pq->tail == NULL && pq->head == NULL;
 }
-
-void QPush(Queue* ps, QDataType x)
+void QueueInit(Queue* pq)
 {
-	assert(ps);
-	QNode* newnode = (QNode*)malloc(sizeof(QNode));
-	if (newnode == NULL)
-	{
-		perror("malloc fail");
-		return;
-	}
-	newnode->data = x;
-	newnode->next = NULL;
-	if (ps->head == NULL)
-	{
-		assert(ps->tail == NULL);
-		ps->head = ps->tail = newnode;
-	}
-	else
-	{
-		ps->tail->next = newnode;
-		ps->tail = newnode;
-	}
-	ps->size++;
+	assert(pq);
+	pq->head = pq->tail = NULL;
+	pq->size = 0;
 }
-
-void QPop(Queue* ps)
+void QueueDestory(Queue* pq)
 {
-	assert(ps);
-	assert(ps->head);
-	/*QNode* next = ps->head->next;
-	free(ps->head);
-	ps->head = next;
-	if (ps->head == NULL)
-		ps->tail = NULL;*/
-	if (ps->head->next == NULL)
-	{
-		free(ps->head);
-		ps->head = ps->tail = NULL;
-	}
-	else
-	{
-		QNode* next = ps->head->next;
-		free(ps->head);
-		ps->head = next;
-	}
-	ps->size--;
-}
-
-QDataType QFront(Queue* ps)
-{
-	assert(ps);
-	assert(!QueueEmpty(ps));
-	return ps->head->data;
-}
-
-QDataType QBack(Queue* ps)
-{
-	assert(ps);
-	assert(!QueueEmpty(ps));
-	return ps->tail->data;
-}
-
-int QSize(Queue* ps)
-{
-	assert(ps);
-	return ps->size;
-}
-
-bool QueueEmpty(Queue* ps)
-{
-	assert(ps);
-	return ps->size == 0;
-}
-
-void QDestroy(Queue* ps)
-{
-	assert(ps);
-	QNode* cur = ps->head;
+	assert(pq);
+	QNode* cur = pq->head;
 	while (cur)
 	{
 		QNode* next = cur->next;
 		free(cur);
+
 		cur = next;
 	}
-	ps->head = ps->tail = NULL;
-	ps->size = 0;
+
+	pq->head = pq->tail = NULL;
+}
+void QueuePush(Queue* pq, QDataType x)
+{
+	assert(pq);
+	QNode* newnode = (QNode*)malloc(sizeof(QNode));
+	if (newnode == NULL)
+	{
+		printf("malloc fail\n");
+		exit(-1);
+	}
+	newnode->data = x;
+	newnode->next = NULL;
+
+	if (pq->tail == NULL)
+	{
+		pq->head = pq->tail = newnode;
+	}
+	else
+	{
+		pq->tail->next = newnode;
+		pq->tail = newnode;
+	}
+	pq->size++;
+}
+void QueuePop(Queue* pq)
+{
+	assert(pq);
+	if (pq->head->next == NULL)
+	{
+		free(pq->head);
+		pq->head = pq->tail = NULL;
+	}
+	else
+	{
+		QNode* next = pq->head->next;
+		free(pq->head);
+		pq->head = next;
+	}
+	pq->size--;
+}
+int QueueSize(Queue* pq)
+{
+	assert(pq);
+	return pq->size;
+}
+
+QDataType QueueFront(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->head->data;
+}
+
+QDataType QueueBack(Queue* pq)
+{
+	assert(pq);
+	assert(!QueueEmpty(pq));
+	return pq->tail->data;
 }

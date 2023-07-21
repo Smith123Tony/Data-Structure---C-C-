@@ -20,19 +20,12 @@ typedef struct Queue
 	int size;
 }Queue;
 
-void QInit(Queue* ps);
-
-void QPush(Queue* ps, QDataType x);
-
-void QPop(Queue* ps);
-
-QDataType QFront(Queue* ps);
-
-QDataType QBack(Queue* ps);
-
-int QSize(Queue* ps);
-
-bool QueueEmpty(Queue* ps);
-
-void QDestroy(Queue* ps);
+void QueueInit(Queue* pq);
+void QueuePush(Queue* pq, QDataType x);
+void QueuePop(Queue* pq);
+QDataType QueueFront(Queue* pq);
+QDataType QueueBack(Queue* pq);
+int QueueSize(Queue* pq);
+bool QueueEmpty(Queue* pq);
+void QueueDestroy(Queue* pq);
 
